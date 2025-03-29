@@ -1,0 +1,19 @@
+#Thread Speedup
+   1      1x
+   2     1.91x
+   3     1.59x
+   4     2.33x
+   5     2.34x
+   6     3.04x
+   7     3.22x
+   8     3.76x 
+
+Each thread has a different horizontal strip to compute on the image. Some strips need more computation than others, leading to uneven workload across the threads.
+Hence, the actual speedup is much less than the number of threads used.
+
+When switching from 8 threads to 16 threads, performance actually decreased slightly. The main reason is I only have 8 cores on my machine. Even if each can run two threads via
+Intel's Hyper-threading, I only have 8 sets of physical ALUs. Only register files and PCs are duplicated. Secondly, the Mandelbrot problem is compute-bound. It performs repeated 
+floating-point operations (multiplications, additions) in a loop, with minimal memory access (only reading c_re, c_im and writing one output value per pixel). Hyper-threading 
+only works when the workload is memory bound because it can switch to another thread when the other is stalling due to memory. So even with 16 threads, the first 8 threads are 
+fully using the ALUs, the other 8 threads will have to wait. The hardware is already being fully utilized with 8 threads. In addition, 16 threads introduce extra over head when 
+switching threads inside a core, which explains the slight performance drop.
