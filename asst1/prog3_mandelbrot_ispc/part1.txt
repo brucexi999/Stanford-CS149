@@ -1,0 +1,4 @@
+View 1 gives about 5x speedup compared to the serial implementation. View 2 gives about 4x.
+Ideally we would expect an 8x speedup. The actual number is smaller because different pixel regions need different amount of compute. 
+There's workload imbalance between different lanes inside the vector units in one core. For view 2, there are more 
+white-black edges, causing more uneven workload between lanes. 

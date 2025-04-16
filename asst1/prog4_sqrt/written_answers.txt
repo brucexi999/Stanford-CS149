@@ -1,0 +1,5 @@
+1. 4x speedup from single core ISPC SIMD. 28x speedup from multicore.
+2. Changed the random input to 2.99f for all elements. Perfectly balanced workload across vector lanes and cores. 
+5x speedup from single core ISPC SIMD. 32x speedup from multicore.
+3. Make elements 1.0f for most of the array except some elements being 2.99f with a stride of 8. This should decrease 
+the vector unit utilization to about 1/8. 0.84x speedup from single core ISPC SIMD.

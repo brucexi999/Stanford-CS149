@@ -1,0 +1,3 @@
+1. About 1.7x speedup from use of tasks. This algorithm is heavily memory-bound and cannot be substantially improved.
+2. Write-back caches in modern CPUs means that the result will be first written to the cache, during this process, the cache line 
+will be loaded from DRAM, causing an extra memory load.

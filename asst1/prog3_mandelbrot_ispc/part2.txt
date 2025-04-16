@@ -1,0 +1,7 @@
+1. Tasked ispc achieves 9-10x speedup compared to serial and about 2x compared to non-tasked ispc. 
+2. I used 200 tasks. The number has to evenly divide height which is 800. The more tasks there are, 
+the more finely chopped up the total workload is, and the more even the workload distribution is. 
+But if there are too much, the overhead (might be caused by synchronization or communication) outweights the benefit. 
+3. ispc tasks are abstracted, 10000 ispc tasks can be put in a work queue and be dynamically assigned to 8 threads 
+which is the maximum number of execution contexts the cpu can handle. Threads however, is physical implementation 
+and 10000 of threads for 10000 ispc tasks can cause a lot of context switch.
