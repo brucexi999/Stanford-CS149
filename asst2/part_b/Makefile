@@ -6,14 +6,15 @@ else
     CXX = g++ -m64
 endif
 
-CXXFLAGS=-I. -I../common -I../tests -Iobjs/ -O3 -std=c++11 -Wall
+# Add -g and use -O0 for debugging
+CXXFLAGS = -I. -I../common -I../tests -Iobjs/ -O0 -g -std=c++11 -Wall
 
-APP_NAME=runtasks
-OBJDIR=objs
-COMMONDIR=../common
+APP_NAME = runtasks
+OBJDIR = objs
+COMMONDIR = ../common
 
-PPM_CXX=$(COMMONDIR)/ppm.cpp
-PPM_OBJ=$(addprefix $(OBJDIR)/, $(subst $(COMMONDIR)/,, $(PPM_CXX:.cpp=.o)))
+PPM_CXX = $(COMMONDIR)/ppm.cpp
+PPM_OBJ = $(addprefix $(OBJDIR)/, $(subst $(COMMONDIR)/,, $(PPM_CXX:.cpp=.o)))
 
 default: $(APP_NAME)
 
@@ -25,7 +26,7 @@ dirs:
 clean:
 	/bin/rm -rf $(OBJDIR) *.ppm *~ $(APP_NAME)
 
-OBJS=$(PPM_OBJ) $(OBJDIR)/tasksys.o
+OBJS = $(PPM_OBJ) $(OBJDIR)/tasksys.o
 
 $(APP_NAME): clean dirs $(OBJS)
 	$(CXX) ../tests/main.cpp $(CXXFLAGS) -o $@ $(OBJDIR)/tasksys.o -lm -lpthread
